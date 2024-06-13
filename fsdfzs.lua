@@ -1281,7 +1281,7 @@ local PredictionLine = Drawing.new("Line")
                         CurrentPosition = NewPosition
                         CurrentTime = NewTime
                         --
-                        return LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Position + Velocity * Library.Flags["SilentAimPredictionAmount"]
+                        return (LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Position + CurrentGame.Name == "Hood Customs" and Vector3.new(25, 100, 25) or Vector2.new(0, 0, 0)) + Velocity * Library.Flags["SilentAimPredictionAmount"]
                     end
                 else
                     if LuckyHub.Locals.AimAssistTarget and LuckyHub.Locals.AimAssistTarget.Character then
@@ -1303,7 +1303,7 @@ local PredictionLine = Drawing.new("Line")
                         CurrentPosition = NewPosition
                         CurrentTime = NewTime
                         --
-                        return LuckyHub.Locals.Position + Velocity * Library.Flags["AimAssistPredictionAmount"]
+                        return (LuckyHub.Locals.AimAssistTarget.Character[LuckyHub.Locals.AimAssistHitPart].Position + CurrentGame.Name == "Hood Customs" and Vector3.new(25, 100, 25) or Vector2.new(0, 0, 0)) + Velocity * Library.Flags["AimAssistPredictionAmount"]
                     end
                 end
             end
@@ -1311,11 +1311,11 @@ local PredictionLine = Drawing.new("Line")
             function LuckyHub:MoveDirection(Mode)
                 if Mode == "Silent Aim" then
                     if LuckyHub.Locals.Target and LuckyHub.Locals.Target.Character and LuckyHub.Locals.Position then
-                        return LuckyHub.Locals.Position + ((LuckyHub.Locals.Target.Character.Humanoid.MoveDirection * LuckyHub.Locals.Target.Character.Humanoid.WalkSpeed) * Library.Flags["SilentAimPredictionAmount"])
+                        return (LuckyHub.Locals.Position + ((LuckyHub.Locals.Target.Character.Humanoid.MoveDirection + CurrentGame.Name == "Hood Customs" and Vector3.new(25, 100, 25) or Vector2.new(0, 0, 0)) * LuckyHub.Locals.Target.Character.Humanoid.WalkSpeed) * Library.Flags["SilentAimPredictionAmount"])
                     end
                 else
                     if LuckyHub.Locals.AimAssistTarget and LuckyHub.Locals.AimAssistTarget.Character then
-                        return LuckyHub.Locals.AimAssistTarget.Character[LuckyHub.Locals.AimAssistHitPart].Position + ((LuckyHub.Locals.AimAssistTarget.Character.Humanoid.MoveDirection * LuckyHub.Locals.AimAssistTarget.Character.Humanoid.WalkSpeed) * Library.Flags["AimAssistPredictionAmount"])
+                        return (LuckyHub.Locals.AimAssistTarget.Character[LuckyHub.Locals.AimAssistHitPart].Position + CurrentGame.Name == "Hood Customs" and Vector3.new(25, 100, 25) or Vector2.new(0, 0, 0)) + ((LuckyHub.Locals.AimAssistTarget.Character.Humanoid.MoveDirection * LuckyHub.Locals.AimAssistTarget.Character.Humanoid.WalkSpeed) * Library.Flags["AimAssistPredictionAmount"])
                     end
                 end
             end
@@ -1376,9 +1376,9 @@ local PredictionLine = Drawing.new("Line")
                         LuckyHub.Locals.AimPoint = Library.Flags["ResolverMethod"] == "Move Direction" and LuckyHub:MoveDirection("Silent Aim") or Library.Flags["ResolverMethod"] == "Velocity Recalculation" and LuckyHub:VelocityRecalculation("Silent Aim")
                     else
                         if Library.Flags["SilentAimNoGroundShots"] then
-                            LuckyHub.Locals.AimPoint = LuckyHub.Locals.Position + Vector3.new(LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Velocity.X, (LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Velocity.Y * 0.5), LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Velocity.Z) * Library.Flags["SilentAimPredictionAmount"]
+                            LuckyHub.Locals.AimPoint = (LuckyHub.Locals.Position + CurrentGame.Name == "Hood Customs" and Vector3.new(25, 100, 25) or Vector2.new(0, 0, 0)) + Vector3.new(LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Velocity.X, (LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Velocity.Y * 0.5), LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Velocity.Z) * Library.Flags["SilentAimPredictionAmount"]
                         else
-                            LuckyHub.Locals.AimPoint = LuckyHub.Locals.Position + LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Velocity * Library.Flags["SilentAimPredictionAmount"]
+                            LuckyHub.Locals.AimPoint = (LuckyHub.Locals.Position + CurrentGame.Name == "Hood Customs" and Vector3.new(25, 100, 25) or Vector2.new(0, 0, 0)) + LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Velocity * Library.Flags["SilentAimPredictionAmount"]
                         end
                     end
                     --
@@ -3445,7 +3445,7 @@ Client.CharacterAdded:Connect(function(Character)
                 end
                 --
                 if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] then
-                    RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint + CurrentGame.Name == "Hood Customs" and Vector3.new(25, 100, 25) or Vector3.new(0, 0, 0))
+                    RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint)
                 end
             end)
         end
@@ -3505,7 +3505,7 @@ ClientCharacter.ChildAdded:Connect(function(child)
             end
             --
             if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] then
-                RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint + CurrentGame.Name == "Hood Customs" and Vector3.new(25, 100, 25) or Vector3.new(0, 0, 0))
+                RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint)
             end
         end)
     end
