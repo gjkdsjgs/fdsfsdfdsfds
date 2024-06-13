@@ -1081,7 +1081,7 @@ local PredictionLine = Drawing.new("Line")
                     local Position, OnScreen = Workspace.CurrentCamera:WorldToScreenPoint(RootPart.Position)
                     local Distance = (Vector2.new(Position.X, Position.Y) - Vector2.new(MousePosition.X, MousePosition.Y)).Magnitude
                     --
-                    if Library.Flags["AimAssistUseFOV"] and not (Distance <= AimAssistFOVCircle.Radius) then continue end
+                    if Library.Flags["AimAssistUseFOV"] and not (Distance <= Visuals.AimAssistFOVCircle.Radius) then continue end
                     --
                     if (Distance < Closest) and OnScreen then
                         Target = Player
@@ -1376,9 +1376,9 @@ local PredictionLine = Drawing.new("Line")
                         LuckyHub.Locals.AimPoint = Library.Flags["ResolverMethod"] == "Move Direction" and LuckyHub:MoveDirection("Silent Aim") or Library.Flags["ResolverMethod"] == "Velocity Recalculation" and LuckyHub:VelocityRecalculation("Silent Aim")
                     else
                         if Library.Flags["SilentAimNoGroundShots"] then
-                            LuckyHub.Locals.AimPoint = LuckyHub.Locals.Position + Vector3.new(25, 100, 25) + Vector3.new(LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Velocity.X, (LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Velocity.Y * 0.5), LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Velocity.Z) * Library.Flags["SilentAimPredictionAmount"]
+                            LuckyHub.Locals.AimPoint = LuckyHub.Locals.Position + Vector3.new(LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Velocity.X, (LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Velocity.Y * 0.5), LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Velocity.Z) * Library.Flags["SilentAimPredictionAmount"]
                         else
-                            LuckyHub.Locals.AimPoint = LuckyHub.Locals.Position + Vector3.new(25, 100, 25) + LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Velocity * Library.Flags["SilentAimPredictionAmount"]
+                            LuckyHub.Locals.AimPoint = LuckyHub.Locals.Position + LuckyHub.Locals.Target.Character[LuckyHub.Locals.HitPart].Velocity * Library.Flags["SilentAimPredictionAmount"]
                         end
                     end
                     --
@@ -1400,7 +1400,7 @@ local PredictionLine = Drawing.new("Line")
                     local Position = Workspace.CurrentCamera:WorldToViewportPoint(RootPart.Position)
                     local Distance = (Vector2.new(Position.X, Position.Y) - Vector2.new(MousePosition.X, MousePosition.Y)).Magnitude
                     --
-                    if Library.Flags["AimAssistUseFOV"] and not (Distance <= AimAssistFOVCircle.Radius) then
+                    if Library.Flags["AimAssistUseFOV"] and not (Distance <= Visuals.AimAssistFOVCircle.Radius) then
                         TracerLine.Visible = false
                         return
                     end
@@ -3445,7 +3445,7 @@ Client.CharacterAdded:Connect(function(Character)
                 end
                 --
                 if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] then
-                    RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint)
+                    RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint + CurrentGame.Name == "Hood Customs" and Vector3.new(25, 100, 25) or Vector3.new(0, 0, 0))
                 end
             end)
         end
@@ -3505,7 +3505,7 @@ ClientCharacter.ChildAdded:Connect(function(child)
             end
             --
             if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] then
-                RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint)
+                RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint + CurrentGame.Name == "Hood Customs" and Vector3.new(25, 100, 25) or Vector3.new(0, 0, 0))
             end
         end)
     end
