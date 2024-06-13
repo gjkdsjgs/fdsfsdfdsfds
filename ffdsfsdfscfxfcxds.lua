@@ -367,7 +367,7 @@ if CurrentGame.Name == "Hood Customs" then
         Wait()
         Connection:Disable()
     end
-    --
+
     for _, Connection in next, getconnections(Workspace.CurrentCamera:GetPropertyChangedSignal("CFrame")) do
         Wait()
         Connection:Disable()
@@ -3450,7 +3450,7 @@ Client.CharacterAdded:Connect(function(Character)
                 end
                 --
                 if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] then
-                    RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint + LuckyHub.Locals.AimOffset)
+                    RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint)
                 end
             end)
         end
@@ -3510,7 +3510,7 @@ ClientCharacter.ChildAdded:Connect(function(child)
             end
             --
             if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] then
-                RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint + LuckyHub.Locals.AimOffset)
+                RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint)
             end
         end)
     end
