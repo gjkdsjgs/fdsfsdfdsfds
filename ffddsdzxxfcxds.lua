@@ -3450,7 +3450,7 @@ Client.CharacterAdded:Connect(function(Character)
                 end
                 --
                 if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] then
-                    RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint)
+                    RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint + LuckyHub.Locals.AimOffset)
                 end
             end)
         end
@@ -3510,7 +3510,7 @@ ClientCharacter.ChildAdded:Connect(function(child)
             end
             --
             if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] then
-                RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint)
+                RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint + LuckyHub.Locals.AimOffset)
             end
         end)
     end
