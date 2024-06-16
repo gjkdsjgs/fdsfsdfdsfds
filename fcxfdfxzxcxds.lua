@@ -351,7 +351,7 @@ Players.PlayerRemoving:Connect(function(Player)
     ESP.RemovePlayer(Player)
 end)
 --
-local bytecode = getscriptbytecode(Client.PlayerGui.Framework)
+local bytecode = getscriptbytecode(Players.LocalPlayer.PlayerGui.Framework)
 local convertreadable = tostring(bytecode)
 --
 for line in convertreadable:gmatch("%w+") do
