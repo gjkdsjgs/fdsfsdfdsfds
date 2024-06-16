@@ -243,7 +243,7 @@ local LuckyHub, Visuals, Movement, Utility, Desync, Visualisation, Math = {
     },
     Locals = {
         Target = nil,
-        CurrentMousePos = nil
+        CurrentMousePos = nil,
         AimAssistTarget = nil,
         HitPart = nil,
         AimAssistHitPart = nil,
