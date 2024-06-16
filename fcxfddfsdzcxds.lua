@@ -57,6 +57,7 @@ local SupportedGames = {
     },
     [3634139746] = {
         Name = "Hood Customs",
+        MouseArguments = "MousePosUpdate",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -69,6 +70,7 @@ local SupportedGames = {
     },
     [3895585994] = {
         Name = "Hood Trainer",
+        MouseArguments = "UpdateMousePos",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -81,6 +83,7 @@ local SupportedGames = {
     },
     [4313782906] = {
         Name = "Dah Hood",
+        MouseArguments = "UpdateMousePos",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -93,6 +96,7 @@ local SupportedGames = {
     },
     [3445639790] = {
         Name = "Untitled-Hood",
+        MouseArguments = "UpdateMousePos",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -105,6 +109,7 @@ local SupportedGames = {
     },
     [3633740623] = {
         Name = "Da Hood Aim Trainer",
+        MouseArguments = "UpdateMousePos",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -117,6 +122,7 @@ local SupportedGames = {
     },
     [4980666598] = {
         Name = "OG Da Hood",
+        MouseArguments = "UpdateMousePos",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -129,6 +135,7 @@ local SupportedGames = {
     },
     [5761403181] = {
         Name = "Da Mirage",
+        MouseArguments = "UpdateMousePos",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -141,6 +148,7 @@ local SupportedGames = {
     },
     [5553757364] = {
         Name = "Dah Hood",
+        MouseArguments = "UpdateMousePos",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -153,6 +161,7 @@ local SupportedGames = {
     },
     [5235037897] = {
         Name = "Da Strike",
+        MouseArguments = "MOUSE",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -165,6 +174,7 @@ local SupportedGames = {
     },
     [4204799886] = {
         Name = "Five Duels",
+        MouseArguments = "shoot",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -177,6 +187,7 @@ local SupportedGames = {
     },
     ["Universal"] = {
         Name = "Universal",
+        MouseArguments = "UpdateMousePos",
         HoodGame = false,
         Functions = {
             CheckKnocked = function(Player)
@@ -206,6 +217,18 @@ local ESP
 --
 if CurrentGame.Name == "Da Hood" then
     ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/dsadasda/main/fdsfdsfsd.lua"))()
+    --
+    if Client and ClientCharacter then
+        local bytecode = getscriptbytecode(Client.PlayerGui.Framework)
+        local convertreadable = tostring(bytecode)
+        --
+        for line in convertreadable:gmatch("%w+") do
+            if line:match("UpdateMousePos") then
+                CurrentGame.MouseArguments = line
+                break
+            end
+        end
+    end
 else
     ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/dsadasda/main/fdsfdsfsfsd.lua"))()
 end
@@ -243,7 +266,6 @@ local LuckyHub, Visuals, Movement, Utility, Desync, Visualisation, Math = {
     },
     Locals = {
         Target = nil,
-        CurrentMousePos = nil,
         AimAssistTarget = nil,
         HitPart = nil,
         AimAssistHitPart = nil,
@@ -335,16 +357,6 @@ if Client and ClientCharacter then
 	if trimmed_stamp ~= "6/12/2024" then
 		Client:Kick("Da Hood has updated please ping me to update the script.")
 	end
-    --
-    local bytecode = getscriptbytecode(Client.PlayerGui.Framework)
-    local convertreadable = tostring(bytecode)
-    --
-    for line in convertreadable:gmatch("%w+") do
-        if line:match("UpdateMousePos") then
-            LuckyHub.Locals.CurrentMousePos = line
-            break
-        end
-    end
 end
 --
 for Index, Player in pairs(Players:GetPlayers()) do
@@ -3151,7 +3163,7 @@ RunService.RenderStepped:Connect(LPH_NO_VIRTUALIZE(function()
             ESP.UpdateTarget(LuckyHub.Locals.AimAssistTarget)
         end
 
-        print(LuckyHub.Locals.CurrentMousePos)
+        print(CurrentGame.MouseArguments)
 end))
 --
 Spawn(function()
@@ -3450,8 +3462,8 @@ Client.CharacterAdded:Connect(function(Character)
                     end
                 end
                 --
-                if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] and LuckyHub.Locals.CurrentMousePos then
-                    RemoteEvent:FireServer(LuckyHub.Locals.CurrentMousePos, LuckyHub.Locals.AimPoint + LuckyHub.Locals.AimOffset)
+                if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] and CurrentGame.MouseArguments then
+                    RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint + LuckyHub.Locals.AimOffset)
                 end
             end)
         end
@@ -3510,8 +3522,8 @@ ClientCharacter.ChildAdded:Connect(function(child)
                 end
             end
             --
-            if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] and LuckyHub.Locals.CurrentMousePos then
-                RemoteEvent:FireServer(LuckyHub.Locals.CurrentMousePos, LuckyHub.Locals.AimPoint + LuckyHub.Locals.AimOffset)
+            if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] and CurrentGame.MouseArguments then
+                RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint + LuckyHub.Locals.AimOffset)
             end
         end)
     end
