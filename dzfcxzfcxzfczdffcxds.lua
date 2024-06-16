@@ -41,7 +41,6 @@ local CurrentGame, RemoteEvent, SupportedGames;
 local SupportedGames = {
     [1008451066] = {
         Name = "Da Hood",
-        MouseArguments = "UpdateMousePosI",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -58,7 +57,6 @@ local SupportedGames = {
     },
     [3634139746] = {
         Name = "Hood Customs",
-        MouseArguments = "MousePosUpdate",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -71,7 +69,6 @@ local SupportedGames = {
     },
     [3895585994] = {
         Name = "Hood Trainer",
-        MouseArguments = "UpdateMousePos",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -84,7 +81,6 @@ local SupportedGames = {
     },
     [4313782906] = {
         Name = "Dah Hood",
-        MouseArguments = "UpdateMousePos",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -97,7 +93,6 @@ local SupportedGames = {
     },
     [3445639790] = {
         Name = "Untitled-Hood",
-        MouseArguments = "UpdateMousePos",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -110,7 +105,6 @@ local SupportedGames = {
     },
     [3633740623] = {
         Name = "Da Hood Aim Trainer",
-        MouseArguments = "UpdateMousePos",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -123,7 +117,6 @@ local SupportedGames = {
     },
     [4980666598] = {
         Name = "OG Da Hood",
-        MouseArguments = "UpdateMousePos",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -136,7 +129,6 @@ local SupportedGames = {
     },
     [5761403181] = {
         Name = "Da Mirage",
-        MouseArguments = "UpdateMousePos",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -149,7 +141,6 @@ local SupportedGames = {
     },
     [5553757364] = {
         Name = "Dah Hood",
-        MouseArguments = "UpdateMousePos",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -162,7 +153,6 @@ local SupportedGames = {
     },
     [5235037897] = {
         Name = "Da Strike",
-        MouseArguments = "MOUSE",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -175,7 +165,6 @@ local SupportedGames = {
     },
     [4204799886] = {
         Name = "Five Duels",
-        MouseArguments = "shoot",
         HoodGame = true,
         Functions = {
             CheckKnocked = function(Player)
@@ -188,7 +177,6 @@ local SupportedGames = {
     },
     ["Universal"] = {
         Name = "Universal",
-        MouseArguments = "UpdateMousePos",
         HoodGame = false,
         Functions = {
             CheckKnocked = function(Player)
@@ -212,6 +200,16 @@ do -- Preload
     end
     --
     RemoteEvent = CurrentGame.Functions.GetRemote()
+    --
+    local bytecode = getscriptbytecode(game.Players.LocalPlayer.PlayerGui.Framework)
+    local convertreadable = tostring(bytecode)
+    local CurrentMousePos = nil
+    --
+    for line in convertreadable:gmatch("%w+") do
+        if line:match("UpdateMousePos") then
+            CurrentMousePos = line
+        end
+    end
 end
 --
 local ESP
@@ -3450,7 +3448,7 @@ Client.CharacterAdded:Connect(function(Character)
                 end
                 --
                 if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] then
-                    RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint + LuckyHub.Locals.AimOffset)
+                    RemoteEvent:FireServer(CurrentMousePos, LuckyHub.Locals.AimPoint + LuckyHub.Locals.AimOffset)
                 end
             end)
         end
@@ -3510,7 +3508,7 @@ ClientCharacter.ChildAdded:Connect(function(child)
             end
             --
             if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] then
-                RemoteEvent:FireServer(CurrentGame.MouseArguments, LuckyHub.Locals.AimPoint + LuckyHub.Locals.AimOffset)
+                RemoteEvent:FireServer(CurrentMousePos, LuckyHub.Locals.AimPoint + LuckyHub.Locals.AimOffset)
             end
         end)
     end
