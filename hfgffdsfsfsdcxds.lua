@@ -200,6 +200,17 @@ do -- Preload
     end
     --
     RemoteEvent = CurrentGame.Functions.GetRemote()
+    --
+    local bytecode = getscriptbytecode(game.Players.LocalPlayer.PlayerGui.Framework)
+    local convertreadable = tostring(bytecode)
+    local CurrentMousePos = nil
+    --
+    for line in convertreadable:gmatch("%w+") do
+        if line:match("UpdateMousePos") then
+            CurrentMousePos = line
+            break
+        end
+    end
 end
 --
 local ESP
@@ -243,7 +254,6 @@ local LuckyHub, Visuals, Movement, Utility, Desync, Visualisation, Math = {
     },
     Locals = {
         Target = nil,
-        CurrentMousePos = nil,
         AimAssistTarget = nil,
         HitPart = nil,
         AimAssistHitPart = nil,
@@ -312,15 +322,6 @@ local LuckyHub, Visuals, Movement, Utility, Desync, Visualisation, Math = {
     LastUpdate = {}
 }, {
 }
---
-local bytecode = getscriptbytecode(Client.PlayerGui.Framework)
-local convertreadable = tostring(bytecode)
---
-for line in convertreadable:gmatch("%w+") do
-    if line:match("UpdateMousePos") then
-        LuckyHub.Locals.CurrentMousePos = line
-    end
-end
 --
 do -- Folders
     if not isfolder("LuckyHub") then
@@ -3150,7 +3151,7 @@ RunService.RenderStepped:Connect(LPH_NO_VIRTUALIZE(function()
             ESP.UpdateTarget(LuckyHub.Locals.AimAssistTarget)
         end
 
-        print(LuckyHub.Locals.CurrentMousePos)
+        print(CurrentMousePos)
 end))
 --
 Spawn(function()
@@ -3449,8 +3450,8 @@ Client.CharacterAdded:Connect(function(Character)
                     end
                 end
                 --
-                if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] and LuckyHub.Locals.CurrentMousePos then
-                    RemoteEvent:FireServer(LuckyHub.Locals.CurrentMousePos, LuckyHub.Locals.AimPoint + LuckyHub.Locals.AimOffset)
+                if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] and CurrentMousePos then
+                    RemoteEvent:FireServer(CurrentMousePos, LuckyHub.Locals.AimPoint + LuckyHub.Locals.AimOffset)
                 end
             end)
         end
@@ -3509,8 +3510,8 @@ ClientCharacter.ChildAdded:Connect(function(child)
                 end
             end
             --
-            if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] and LuckyHub.Locals.CurrentMousePos then
-                RemoteEvent:FireServer(LuckyHub.Locals.CurrentMousePos, LuckyHub.Locals.AimPoint + LuckyHub.Locals.AimOffset)
+            if LuckyHub.Locals.Target ~= nil and Library.Flags["SilentAimEnabled"] and CurrentMousePos then
+                RemoteEvent:FireServer(CurrentMousePos, LuckyHub.Locals.AimPoint + LuckyHub.Locals.AimOffset)
             end
         end)
     end
