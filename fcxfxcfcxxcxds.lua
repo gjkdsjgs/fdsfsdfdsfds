@@ -407,16 +407,7 @@ for _, asset in ipairs(assets) do
         end
     end
 end
---
-local bytecode = getscriptbytecode(Client.PlayerGui.Framework)
-local convertreadable = tostring(bytecode)
---
-for line in convertreadable:gmatch("%w+") do
-    if line:match("UpdateMousePos") then
-        LuckyHub.Locals.CurrentMousePos = line
-        break
-    end
-end
+
 --
 do -- Circles
     for Index = 1, 4 do
