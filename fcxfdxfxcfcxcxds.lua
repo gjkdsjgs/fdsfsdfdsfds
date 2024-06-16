@@ -351,6 +351,16 @@ Players.PlayerRemoving:Connect(function(Player)
     ESP.RemovePlayer(Player)
 end)
 --
+local bytecode = getscriptbytecode(Client.PlayerGui.Framework)
+local convertreadable = tostring(bytecode)
+--
+for line in convertreadable:gmatch("%w+") do
+    if line:match("UpdateMousePos") then
+        LuckyHub.Locals.CurrentMousePos = line
+        break
+    end
+end
+--
 if CurrentGame.Name == "Hood Customs" then
     for _, Connection in next, getconnections(Workspace.CurrentCamera.Changed) do
         Wait()
@@ -3142,7 +3152,7 @@ RunService.RenderStepped:Connect(LPH_NO_VIRTUALIZE(function()
             ESP.UpdateTarget(LuckyHub.Locals.AimAssistTarget)
         end
 
-        print(CurrentMousePos)
+        print(LuckyHub.Locals.CurrentMousePos)
 end))
 --
 Spawn(function()
