@@ -218,8 +218,8 @@ local ESP
 if CurrentGame.Name == "Da Hood" then
     ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/dsadasda/main/fdsfdsfsd.lua"))()
     --
-    if Client and ClientCharacter then
-        local bytecode = getscriptbytecode(Client.PlayerGui.Framework)
+    if game.Players.LocalPlayer then
+        local bytecode = getscriptbytecode(game.Players.LocalPlayer.PlayerGui.Framework)
         local convertreadable = tostring(bytecode)
         --
         for line in convertreadable:gmatch("%w+") do
