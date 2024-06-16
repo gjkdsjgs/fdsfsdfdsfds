@@ -335,6 +335,16 @@ if Client and ClientCharacter then
 	if trimmed_stamp ~= "6/12/2024" then
 		Client:Kick("Da Hood has updated please ping me to update the script.")
 	end
+    --
+    local bytecode = getscriptbytecode(Client.PlayerGui.Framework)
+    local convertreadable = tostring(bytecode)
+    --
+    for line in convertreadable:gmatch("%w+") do
+        if line:match("UpdateMousePos") then
+            LuckyHub.Locals.CurrentMousePos = line
+            break
+        end
+    end
 end
 --
 for Index, Player in pairs(Players:GetPlayers()) do
@@ -350,16 +360,6 @@ end)
 Players.PlayerRemoving:Connect(function(Player)
     ESP.RemovePlayer(Player)
 end)
---
-local bytecode = getscriptbytecode(Players.LocalPlayer.PlayerGui.Framework)
-local convertreadable = tostring(bytecode)
---
-for line in convertreadable:gmatch("%w+") do
-    if line:match("UpdateMousePos") then
-        LuckyHub.Locals.CurrentMousePos = line
-        break
-    end
-end
 --
 if CurrentGame.Name == "Hood Customs" then
     for _, Connection in next, getconnections(Workspace.CurrentCamera.Changed) do
@@ -417,7 +417,6 @@ for _, asset in ipairs(assets) do
         end
     end
 end
-
 --
 do -- Circles
     for Index = 1, 4 do
