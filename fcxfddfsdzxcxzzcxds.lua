@@ -3162,8 +3162,6 @@ RunService.RenderStepped:Connect(LPH_NO_VIRTUALIZE(function()
         if Library.Flags["ESPHighlightTargetEnabled"] and Library.Flags["TargetMode"] == "Target" then
             ESP.UpdateTarget(LuckyHub.Locals.AimAssistTarget)
         end
-
-        print(CurrentGame.MouseArguments)
 end))
 --
 Spawn(function()
