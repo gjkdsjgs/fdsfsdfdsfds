@@ -5524,7 +5524,7 @@ function Library:Window(options)
 										ColorPicker["47"].Position = UDim2.fromScale(0, math.clamp(ColorPicker.Hue, 0, 0.98))
 
 										options.Callback(ColorPicker.Color, ColorPicker.Alpha)
-										Library.Flags[ColorPicker:GetFlag()] = {Color = ColorPicker.Color, Alpha = ColorPicker.Alpha}
+										Library.Flags[ColorPicker:GetFlag()] = ColorPicker.Color
 									end
 
 									function ColorPicker:Update()
@@ -6689,7 +6689,7 @@ function Library:Window(options)
 										ColorPicker["47"].Position = UDim2.fromScale(0, math.clamp(ColorPicker.Hue, 0, 0.98))
 
 										options.Callback(ColorPicker.Color, ColorPicker.Alpha)
-										Library.Flags[ColorPicker:GetFlag()] = {Color = ColorPicker.Color, Alpha = ColorPicker.Alpha}
+										Library.Flags[ColorPicker:GetFlag()] = ColorPicker.Color
 									end
 
 									function ColorPicker:Update()
