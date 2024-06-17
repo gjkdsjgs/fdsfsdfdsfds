@@ -489,7 +489,7 @@ function Library:Window(options)
 		GUI["1c"] = Instance.new("Frame", GUI["1"]);
 		GUI["1c"]["BorderSizePixel"] = 0;
 		GUI["1c"]["BackgroundColor3"] = Color3.fromRGB(31, 31, 31);
-		GUI["1c"]["Size"] = UDim2.new(0, 160, 0, 30);
+		GUI["1c"]["Size"] = UDim2.new(0, 200, 0, 30);
 		GUI["1c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 		GUI["1c"]["Position"] = UDim2.fromOffset(10, (viewport.Y / 2) - (GUI["1c"].Size.Y.Offset / 2));
 		GUI["1c"]["Name"] = [[KeybindList]];
