@@ -127,7 +127,7 @@ function Library:AutoResize(scrollingFrame, uilistlayout)
 			end
 		end
 		totalHeight = totalHeight + (#scrollingFrame:GetChildren() - 1) * uilistlayout.Padding.Offset
-		scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, totalHeight - 5)
+		scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, totalHeight - 7)
 		scrollingFrame.ScrollBarImageTransparency = scrollingFrame.CanvasSize.Y.Offset <= scrollingFrame.AbsoluteSize.Y and 1 or 0
 	end
 
