@@ -134,28 +134,6 @@ function Library:AutoResize(scrollingFrame, uilistlayout)
 	ResizeScrollingFrame()
 end
 --
-function Library:AutoResizeTabs(frameToTrack, scrollingFrames, Constraint)
-	local function updateScrollingFrameSize(scrollingFrame)
-		scrollingFrame.CanvasSize = UDim2.new(0, Constraint.AbsoluteContentSize.X, 0, Constraint.AbsoluteContentSize.Y + 20)
-		scrollingFrame.ScrollBarImageTransparency = scrollingFrame.CanvasSize.Y.Offset <= scrollingFrame.AbsoluteSize.Y and 1 or 0
-	end
-
-	local function updateAllScrollingFrames()
-		for _, scrollingFrame in ipairs(scrollingFrames) do
-			updateScrollingFrameSize(scrollingFrame)
-		end
-	end
-
-	frameToTrack:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateAllScrollingFrames)
-
-	for _, scrollingFrame in ipairs(scrollingFrames) do
-		scrollingFrame.ChildAdded:Connect(function() updateScrollingFrameSize(scrollingFrame) end)
-		scrollingFrame.ChildRemoved:Connect(function() updateScrollingFrameSize(scrollingFrame) end)
-	end
-
-	updateAllScrollingFrames()
-end
---
 local function GetDictionaryLength(Dictionary: table)
 	local Length = 1
 	for _ in pairs(Dictionary) do
@@ -1516,6 +1494,7 @@ function Library:Window(options)
 		GUI["47"]["ScrollBarImageTransparency"] = 1;
 		GUI["47"]["ScrollBarThickness"] = 0;
 		GUI["47"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+		GUI["47"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
 		GUI["47"]["BackgroundTransparency"] = 1;
 		GUI["47"]["Size"] = UDim2.new(1, 0, 1, 0);
 		GUI["47"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
@@ -1720,8 +1699,6 @@ function Library:Window(options)
 				Tab["43"]["PaddingBottom"] = UDim.new(0, 1);
 				Tab["43"]["PaddingLeft"] = UDim.new(0, 1);
 			end
-
-			Library:AutoResizeTabs(GUI["2"], {Tab["8"], Tab["41"]}, Tab["42"])
 		end
 		-- Methods
 		function Tab:Activate()
@@ -3288,6 +3265,7 @@ function Library:Window(options)
 				PlayerListTab["24"]["ScrollBarImageTransparency"] = 0;
 				PlayerListTab["24"]["ScrollBarThickness"] = 4;
 				PlayerListTab["24"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+				PlayerListTab["24"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
 				PlayerListTab["24"]["BackgroundTransparency"] = 1;
 				PlayerListTab["24"]["Size"] = UDim2.new(1, 0, 1, 0);
 				PlayerListTab["24"]["ScrollBarImageColor3"] = Library.Theme.Accent;
@@ -3421,6 +3399,7 @@ function Library:Window(options)
 					PlayerListTab["5e"]["ScrollBarImageTransparency"] = 0;
 					PlayerListTab["5e"]["ScrollBarThickness"] = 2;
 					PlayerListTab["5e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+					PlayerListTab["5e"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
 					PlayerListTab["5e"]["BackgroundTransparency"] = 1;
 					PlayerListTab["5e"]["Size"] = UDim2.new(1, 0, 0, 45);
 					PlayerListTab["5e"]["ScrollBarImageColor3"] = Library.Theme.Accent;
@@ -7387,6 +7366,7 @@ function Library:Window(options)
 					Dropdown["c5"]["ScrollBarImageTransparency"] = 0;
 					Dropdown["c5"]["ScrollBarThickness"] = 2;
 					Dropdown["c5"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+					Dropdown["c5"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
 					Dropdown["c5"]["BackgroundTransparency"] = 1;
 					Dropdown["c5"]["Size"] = UDim2.new(1, 0, 0, 75);
 					Dropdown["c5"]["ScrollBarImageColor3"] = Library.Theme.Accent;
@@ -7770,6 +7750,7 @@ function Library:Window(options)
 					MultiBox["c5"]["ScrollBarImageTransparency"] = 0;
 					MultiBox["c5"]["ScrollBarThickness"] = 2;
 					MultiBox["c5"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+					MultiBox["c5"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
 					MultiBox["c5"]["BackgroundTransparency"] = 1;
 					MultiBox["c5"]["Size"] = UDim2.new(1, 0, 0, 75);
 					MultiBox["c5"]["ScrollBarImageColor3"] = Library.Theme.Accent;
