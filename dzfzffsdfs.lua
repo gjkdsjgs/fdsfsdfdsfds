@@ -137,6 +137,9 @@ end
 function Library:AutoResizeTabs(frameToTrack, scrollingFrames, padding)
 	local function updateScrollingFrameSize()
 		for _, scrollingFrame in ipairs(scrollingFrames) do
+			local uilistlayout = scrollingFrame:FindFirstChildOfClass("UIListLayout")
+			local padding = uilistlayout and uilistlayout.Padding.Offset or 0
+
 			local totalHeight = 0
 			local children = scrollingFrame:GetChildren()
 			local childCount = 0
