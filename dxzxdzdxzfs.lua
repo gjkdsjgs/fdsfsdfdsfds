@@ -589,12 +589,12 @@ function Library:Window(options)
 		end
 
 		local function Set1cSize()
-			local size = UDim2.new(0, 160, 0, 30)
+			local size = UDim2.new(0, 200, 0, 30)
 
-			if #GUI["hh"]:GetChildren() > 2 then
+			if #GUI["hh"]:GetChildren() >= 1 then
 				local largestTextBounds = GetLargestTextBounds()
 
-				size = UDim2.new(0, math.max(largestTextBounds.X + 12, 160), 0, 30)
+				size = UDim2.new(0, math.max(largestTextBounds.X + 12, 200), 0, 30)
 			end
 
 			GUI["1c"].Size = size
