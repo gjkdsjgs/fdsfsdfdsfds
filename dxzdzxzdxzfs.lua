@@ -5873,7 +5873,7 @@ function Library:Window(options)
 							MouseDown = false,
 							Keybind = options.Default ~= nil and options.Default or "None",
 							RegKeybind = nil,
-							State = false,
+							State = true,
 							Toggle = false,
 							Mode = options.Mode,
 							CurrentModeFrame = nil,
@@ -6323,8 +6323,8 @@ function Library:Window(options)
 										end
 									end
 
-									Library.Flags[Toggle:GetFlag()] = Keybind.State
-									Toggle:GetCallback(Keybind.State)
+									Library.Flags[Toggle:GetFlag()] = Keybind.Mode == "Off Hold" and not Keybind.State or Keybind.State
+									Toggle:GetCallback(Keybind.Mode == "Off Hold" and not Keybind.State or Keybind.State)
 								else
 									if not options.HideFromList then
 										if not Keybind.State then
