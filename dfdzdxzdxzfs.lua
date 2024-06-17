@@ -1522,7 +1522,6 @@ function Library:Window(options)
 		GUI["47"]["ScrollBarImageTransparency"] = 1;
 		GUI["47"]["ScrollBarThickness"] = 0;
 		GUI["47"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-		GUI["47"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
 		GUI["47"]["BackgroundTransparency"] = 1;
 		GUI["47"]["Size"] = UDim2.new(1, 0, 1, 0);
 		GUI["47"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
@@ -3298,7 +3297,6 @@ function Library:Window(options)
 				PlayerListTab["24"]["ScrollBarImageTransparency"] = 0;
 				PlayerListTab["24"]["ScrollBarThickness"] = 4;
 				PlayerListTab["24"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-				PlayerListTab["24"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
 				PlayerListTab["24"]["BackgroundTransparency"] = 1;
 				PlayerListTab["24"]["Size"] = UDim2.new(1, 0, 1, 0);
 				PlayerListTab["24"]["ScrollBarImageColor3"] = Library.Theme.Accent;
@@ -3432,7 +3430,6 @@ function Library:Window(options)
 					PlayerListTab["5e"]["ScrollBarImageTransparency"] = 0;
 					PlayerListTab["5e"]["ScrollBarThickness"] = 2;
 					PlayerListTab["5e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-					PlayerListTab["5e"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
 					PlayerListTab["5e"]["BackgroundTransparency"] = 1;
 					PlayerListTab["5e"]["Size"] = UDim2.new(1, 0, 0, 45);
 					PlayerListTab["5e"]["ScrollBarImageColor3"] = Library.Theme.Accent;
@@ -3915,14 +3912,44 @@ function Library:Window(options)
 					end
 
 					function PlayerListTab:UpdateFlag(Player)
-						if Player ~= players.LocalPlayer then
-							for i, v in pairs(Item["25"]:GetChildren()) do
-								if v.Name == "Flags" then
-									v.Text = Tab:GetFlag(Player) ~= nil and tostring(Tab:GetFlag(Player)) or "None"
-									v.TextColor3 = Tab:GetColor(Tab:GetFlag(Player))
+						if Player == nil then return end
+						--
+						for i, v in pairs(PlayerListTab["24"]:GetDescendants()) do
+							if v.Name == Player.Name then
+								local FlagsText = v:FindFirstChild("Flags")
+								if FlagsText then
+									Item.Flag = Tab:GetFlag(Player) ~= nil and tostring(Tab:GetFlag(Player)) or "None"
+									local FlagColor = Tab:GetColor(Tab:GetFlag(Player))
+									FlagsText.Text = Item.Flag
+									FlagsText.TextColor3 = FlagColor
 								end
 							end
 						end
+					end
+
+					function Library:GetPlayerFlag(Player)
+						if Player == nil then return end
+
+						local Flag
+
+						for i, v in pairs(PlayerListTab["24"]:GetDescendants()) do
+							if v.Name == Player.Name then
+								local FlagsText = v:FindFirstChild("Flags")
+								--
+								if FlagsText then
+									Flag = FlagsText.Text
+								end
+							end
+						end
+
+						return Flag
+					end
+
+					function Library:SetPlayerFlag(Player, Flag)
+						if Player == nil then return end
+
+						Tab:SetFlag(Flag)
+						PlayerListTab:UpdateFlag(Player)
 					end
 
 					function Item:Activate()
@@ -7369,7 +7396,6 @@ function Library:Window(options)
 					Dropdown["c5"]["ScrollBarImageTransparency"] = 0;
 					Dropdown["c5"]["ScrollBarThickness"] = 2;
 					Dropdown["c5"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-					Dropdown["c5"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
 					Dropdown["c5"]["BackgroundTransparency"] = 1;
 					Dropdown["c5"]["Size"] = UDim2.new(1, 0, 0, 75);
 					Dropdown["c5"]["ScrollBarImageColor3"] = Library.Theme.Accent;
@@ -7753,7 +7779,6 @@ function Library:Window(options)
 					MultiBox["c5"]["ScrollBarImageTransparency"] = 0;
 					MultiBox["c5"]["ScrollBarThickness"] = 2;
 					MultiBox["c5"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
-					MultiBox["c5"]["AutomaticCanvasSize"] = Enum.AutomaticSize.Y;
 					MultiBox["c5"]["BackgroundTransparency"] = 1;
 					MultiBox["c5"]["Size"] = UDim2.new(1, 0, 0, 75);
 					MultiBox["c5"]["ScrollBarImageColor3"] = Library.Theme.Accent;
