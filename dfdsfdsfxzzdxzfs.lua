@@ -6327,7 +6327,7 @@ function Library:Window(options)
 									Toggle:GetCallback(Keybind.State)
 								else
 									if not options.HideFromList then
-										if Keybind.State then
+										if not Keybind.State then
 											GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
 										else
 											GUI:RemoveKeybind(Toggle:GetName())
