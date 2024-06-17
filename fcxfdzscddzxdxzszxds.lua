@@ -14,6 +14,7 @@ local mouse = players.LocalPlayer:GetMouse()
 local zindexcount = 999
 local zindexcount2 = 999
 
+local Library = {};
 local Library = {
 	tweenInfoDragSpeed = 0.15,
 	tweenInfoFadeSpeed = 0.3,
