@@ -1383,23 +1383,8 @@ function Library:Window(options)
 
 	function GUI:MainUIVisibility(State)
 		GUI["2"].Visible = State
+		GUI["4"].Visible = State
 	end
-
-
-	uis.InputBegan:Connect(function(input, gpe)
-		if gpe then return end
-		if input.KeyCode == options.CloseBind and not Debounce then
-			Debounce = true
-			if isFadedOut then
-				Library:FadeIn()
-			else
-				Library:FadeOut()
-			end
-			isFadedOut = not isFadedOut
-			task.wait(Library.tweenInfoFadeSpeed + 0.1)
-			Debounce = false
-		end
-	end)
 
 	-- StarterGui.MyLibrary.MainBackground.ResizableCorner
 	GUI["2mm"] = Instance.new("Frame", GUI["2"]);
