@@ -3282,7 +3282,6 @@ function Library:Window(options)
 			end
 
 			Library:AutoResize(PlayerListTab["24"], PlayerListTab["2f"])
-			Library:AutoResize(PlayerListTab["5"], PlayerListTab["1d"])
 
 			function PlayerListTab:UpdateFlag(Player, Flag)
 				if not Player then return end
