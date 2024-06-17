@@ -3124,6 +3124,23 @@ do -- Settings
     end
 end
 --
+local temp = tick()
+local Tick = tick()
+--
+RunService.PreRender:Connect(LPH_NO_VIRTUALIZE(function()
+	local FPS = math.floor(1 / math.abs(temp - tick()))
+	temp = tick()
+	local Ping = stats.Network:FindFirstChild("ServerStatsItem") and tostring(math.round(stats.Network.ServerStatsItem["Data Ping"]:GetValue())) or "N/A"
+	--
+	task.spawn(function()
+		if (tick() - Tick) > 0.15 then
+				Main:UpdateWatermark(string.format("LuckyHub | Build: Buyer | Ping: %s | FPS: %s", tostring(Ping), tostring(FPS)))
+			--
+			Tick = tick()
+		end
+	end)
+end))
+--
 RunService.RenderStepped:Connect(LPH_NO_VIRTUALIZE(function()
         Utility:ThreadFunction(LuckyHub.UpdateFOV, "0x01")
         --
