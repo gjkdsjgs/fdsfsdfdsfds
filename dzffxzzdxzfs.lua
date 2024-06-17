@@ -6314,7 +6314,7 @@ function Library:Window(options)
 									Keybind.State = b
 								end
 
-								if Keybind.Mode ~= "Off Hold" then
+								if Keybind.Mode ~= "Off Hold" and Keybind.Mode ~= "On Hold" then
 									if not options.HideFromList then
 										if Keybind.State then
 											GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
@@ -6325,7 +6325,7 @@ function Library:Window(options)
 
 									Library.Flags[Toggle:GetFlag()] = Keybind.State
 									Toggle:GetCallback(Keybind.State)
-								else
+								elseif Keybind.Mode == "Off Hold" then
 									if not options.HideFromList then
 										if not Keybind.State then
 											GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
@@ -6336,6 +6336,17 @@ function Library:Window(options)
 
 									Library.Flags[Toggle:GetFlag()] = Keybind.State
 									Toggle:GetCallback(Keybind.State)
+								elseif Keybind.Mode == "On Hold" then
+									if not options.HideFromList then
+										if not Keybind.State then
+											GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
+										else
+											GUI:RemoveKeybind(Toggle:GetName())
+										end
+									end
+
+									Library.Flags[Toggle:GetFlag()] = not Keybind.State
+									Toggle:GetCallback(not Keybind.State)
 								end
 							end
 						end
