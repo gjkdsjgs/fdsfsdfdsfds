@@ -3287,11 +3287,7 @@ function Library:Window(options)
 				PlayerListTab["2f"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 			end
 
-			local scrollingFrame = PlayerListTab["24"]
-			local uilistlayout = PlayerListTab["2f"]
-
 			Library:AutoResize(PlayerListTab["24"], PlayerListTab["2f"])
-			Library:AutoResize(PlayerListTab["5"], PlayerListTab["1d"])
 
 			function PlayerListTab:UpdateFlag(Player, Flag)
 				if not Player then return end
