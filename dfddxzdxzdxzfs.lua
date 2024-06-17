@@ -134,15 +134,9 @@ function Library:AutoResize(scrollingFrame, uilistlayout)
 	ResizeScrollingFrame()
 end
 --
-function Library:AutoResizeTabs(frameToTrack, scrollingFrames)
+function Library:AutoResizeTabs(frameToTrack, scrollingFrames, Constraint)
 	local function updateScrollingFrameSize(scrollingFrame)
-		local totalHeight = 0
-		for _, item in ipairs(scrollingFrame:GetChildren()) do
-			if item:IsA("Frame") then
-				totalHeight = totalHeight + item.AbsoluteSize.Y + 10
-			end
-		end
-		scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, totalHeight)
+		scrollingFrame.CanvasSize = UDim2.new(0, Constraint.AbsoluteContentSize.X, 0, Constraint.AbsoluteContentSize.Y + 20)
 		scrollingFrame.ScrollBarImageTransparency = scrollingFrame.CanvasSize.Y.Offset <= scrollingFrame.AbsoluteSize.Y and 1 or 0
 	end
 
@@ -1727,10 +1721,7 @@ function Library:Window(options)
 				Tab["43"]["PaddingLeft"] = UDim.new(0, 1);
 			end
 
-			Library:AutoResizeTabs(GUI["2"], {Tab["8"], Tab["41"]})
-
-
-
+			Library:AutoResizeTabs(GUI["2"], {Tab["8"], Tab["41"]}, Tab["42"])
 		end
 		-- Methods
 		function Tab:Activate()
