@@ -5234,7 +5234,7 @@ function Library:Window(options)
 						}, options or {})
 
 						if not options.Default then
-							Library.Flags[options.Default] = {Color = options.Default, Alpha = options.Alpha}
+							Library.Flags[options.Default] = options.Default
 							options.Callback(options.Default, options.Alpha)
 						end
 
@@ -5676,8 +5676,8 @@ function Library:Window(options)
 						end
 
 
-						options.Callback(ColorPicker.Color, ColorPicker.Alpha)
-						Library.Flags[options.Flag] = {Color = options.Default, Alpha = options.Alpha}
+						options.Callback(ColorPicker.Color)
+						Library.Flags[options.Flag] = ColorPicker.Color
 
 						return ColorPicker
 					end
@@ -6369,7 +6369,7 @@ function Library:Window(options)
 						}, options or {})
 
 						if not options.Default then
-							Library.Flags[options.Default] = {Color = options.Default, Alpha = options.Alpha}
+							Library.Flags[options.Default] = options.Default
 							options.Callback(options.Default, options.Alpha)
 						end
 
@@ -6827,7 +6827,7 @@ function Library:Window(options)
 
 
 						options.Callback(ColorPicker.Color, ColorPicker.Alpha)
-						Library.Flags[options.Flag] = {Color = options.Default, Alpha = options.Alpha}
+						Library.Flags[options.Flag] = ColorPicker.Color
 
 						return ColorPicker
 					end
