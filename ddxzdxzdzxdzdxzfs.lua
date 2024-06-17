@@ -18,7 +18,7 @@ local Library = {
 	tweenInfoDragSpeed = 0.15,
 	tweenInfoFadeSpeed = 0.3,
 	tweenInfoEasingStyle = Enum.EasingStyle.Sine,
-	performanceDrag = true,
+	performanceDrag = false,
 	Sections = {};
 	Flags = {},
 	UnnamedFlags = 0,
@@ -127,7 +127,7 @@ function Library:AutoResize(scrollingFrame, uilistlayout)
 			end
 		end
 		totalHeight = totalHeight + (#scrollingFrame:GetChildren() - 1) * uilistlayout.Padding.Offset
-		scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, totalHeight)
+		scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, totalHeight - 5)
 		scrollingFrame.ScrollBarImageTransparency = scrollingFrame.CanvasSize.Y.Offset <= scrollingFrame.AbsoluteSize.Y and 1 or 0
 	end
 
@@ -8030,7 +8030,6 @@ function Library:Window(options)
 
 	function Library:Init()
 		Library:ChangeTheme(Library.Theme.Accent, "Accent")
-		Library:AutoResize(GUI["47"], GUI["49"])
 		
 		local gui = GUI["2"]
 		local outlineGui = GUI["gggg"]
