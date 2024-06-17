@@ -1728,7 +1728,8 @@ function Library:Window(options)
 				Tab["43"]["PaddingLeft"] = UDim.new(0, 1);
 			end
 
-			Library:AutoResizeTabs(GUI["2"], {Tab["8"], Tab["41"]})
+			Library:AutoResize(Tab["8"], Tab["42"])
+			Library:AutoResize(Tab["41"], Tab["42"])
 
 
 
