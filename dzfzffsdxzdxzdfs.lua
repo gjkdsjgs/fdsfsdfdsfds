@@ -134,26 +134,29 @@ function Library:AutoResize(scrollingFrame, uilistlayout)
 	ResizeScrollingFrame()
 end
 --
-function Library:AutoResizeTabs(frameToTrack, scrollingFrames, padding)
+function Library:AutoResizeTabs(frameToTrack, scrollingFrames)
 	local function updateScrollingFrameSize()
 		for _, scrollingFrame in ipairs(scrollingFrames) do
 			local uilistlayout = scrollingFrame:FindFirstChildOfClass("UIListLayout")
 			local padding = uilistlayout and uilistlayout.Padding.Offset or 0
 
 			local totalHeight = 0
-			local children = scrollingFrame:GetChildren()
 			local childCount = 0
 
-			for _, item in ipairs(children) do
+			for _, item in ipairs(scrollingFrame:GetChildren()) do
 				if item:IsA("GuiObject") then
 					totalHeight = totalHeight + item.AbsoluteSize.Y
 					childCount = childCount + 1
 				end
 			end
 
+			-- Add padding only between elements, not after the last element
 			if childCount > 1 then
 				totalHeight = totalHeight + (childCount - 1) * padding
 			end
+
+			print("Total Height:", totalHeight)  -- Debugging statement
+			print("CanvasSize Y Offset:", totalHeight)
 
 			scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, totalHeight)
 			scrollingFrame.ScrollBarImageTransparency = scrollingFrame.CanvasSize.Y.Offset <= scrollingFrame.AbsoluteSize.Y and 1 or 0
@@ -1736,7 +1739,7 @@ function Library:Window(options)
 				Tab["43"]["PaddingLeft"] = UDim.new(0, 1);
 			end
 
-			Library:AutoResizeTabs(GUI["2"], {Tab["8"], Tab["41"]}, 10)
+			Library:AutoResizeTabs(GUI["2"], {Tab["8"], Tab["41"]})
 
 
 
