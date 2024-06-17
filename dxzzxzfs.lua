@@ -2842,23 +2842,17 @@ function Library:Window(options)
 			}
 
 			do -- Render
-				-- StarterGui.MyLibrary.MainBackground.ContentContainer.Hometab.GunList
-				PlayerListTab["5"] = Instance.new("ScrollingFrame", Tab["7"]);
-				PlayerListTab["5"]["Active"] = true;
-				PlayerListTab["5"]["ScrollingDirection"] = Enum.ScrollingDirection.Y;
+
+				-- StarterGui.MyLibrary.MainBackground.ContentContainer.PlayerTab.PlayerListSection.PlayerList
+				PlayerListTab["5"] = Instance.new("Frame", Tab["7"]);
 				PlayerListTab["5"]["BorderSizePixel"] = 0;
-				PlayerListTab["5"]["ScrollBarImageTransparency"] = 1;
 				PlayerListTab["5"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 				PlayerListTab["5"]["BackgroundTransparency"] = 1;
 				PlayerListTab["5"]["Size"] = UDim2.new(1, -2, 1, 20);
-				PlayerListTab["5"]["ClipsDescendants"] = true;
 				PlayerListTab["5"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-				PlayerListTab["5"]["ScrollBarThickness"] = 2;
 				PlayerListTab["5"]["Position"] = UDim2.new(0, 1, 0, -12);
 				PlayerListTab["5"]["Name"] = [[PlayerTab]];
-				PlayerListTab["5"]["BottomImage"] = "http://www.roblox.com/asset/?id=158362264";
-				PlayerListTab["5"]["MidImage"] = "http://www.roblox.com/asset/?id=158362264";
-				PlayerListTab["5"]["TopImage"] = "http://www.roblox.com/asset/?id=158362264";
+				PlayerListTab["5"]["ClipsDescendants"] = false;
 
 				PlayerListTab["5a"] = Instance.new("UIPadding", PlayerListTab["5"]);
 				PlayerListTab["5a"]["PaddingTop"] = UDim.new(0, 20);
@@ -3288,6 +3282,7 @@ function Library:Window(options)
 			end
 
 			Library:AutoResize(PlayerListTab["24"], PlayerListTab["2f"])
+			Library:AutoResize(PlayerListTab["5"], PlayerListTab["1d"])
 
 			function PlayerListTab:UpdateFlag(Player, Flag)
 				if not Player then return end
