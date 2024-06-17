@@ -134,6 +134,34 @@ function Library:AutoResize(scrollingFrame, uilistlayout)
 	ResizeScrollingFrame()
 end
 --
+function Library:AutoResizeTabs(frameToTrack, scrollingFrames)
+	local function updateScrollingFrameSize(scrollingFrame)
+		local totalHeight = 0
+		for _, item in ipairs(scrollingFrame:GetChildren()) do
+			if item:IsA("Frame") then
+				totalHeight = totalHeight + item.Size.Y.Offset + 10
+			end
+		end
+		scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, totalHeight)
+		scrollingFrame.ScrollBarImageTransparency = scrollingFrame.CanvasSize.Y.Offset <= scrollingFrame.AbsoluteSize.Y and 1 or 0
+	end
+
+	local function updateAllScrollingFrames()
+		for _, scrollingFrame in ipairs(scrollingFrames) do
+			updateScrollingFrameSize(scrollingFrame)
+		end
+	end
+
+	frameToTrack:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateAllScrollingFrames)
+
+	for _, scrollingFrame in ipairs(scrollingFrames) do
+		scrollingFrame.ChildAdded:Connect(function() updateScrollingFrameSize(scrollingFrame) end)
+		scrollingFrame.ChildRemoved:Connect(function() updateScrollingFrameSize(scrollingFrame) end)
+	end
+
+	updateAllScrollingFrames()
+end
+--
 local function GetDictionaryLength(Dictionary: table)
 	local Length = 1
 	for _ in pairs(Dictionary) do
@@ -1699,6 +1727,11 @@ function Library:Window(options)
 				Tab["43"]["PaddingBottom"] = UDim.new(0, 1);
 				Tab["43"]["PaddingLeft"] = UDim.new(0, 1);
 			end
+
+			Library:AutoResizeTabs(GUI["2"], {Tab["8"], Tab["41"]})
+
+
+
 		end
 		-- Methods
 		function Tab:Activate()
