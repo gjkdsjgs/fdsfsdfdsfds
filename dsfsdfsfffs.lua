@@ -34,7 +34,7 @@ end
 local converted_stamp = ConvertTimeStamp(update_stamp)
 local trimmed_stamp = converted_stamp:match("^%s*(.-)%s*$")
 --
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/dsadasda/main/dzffxzzdxzfs.lua"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/dsadasda/main/fdxfxdxzfs.lua"))()
 --
 local CurrentGame, RemoteEvent, SupportedGames;
 --
