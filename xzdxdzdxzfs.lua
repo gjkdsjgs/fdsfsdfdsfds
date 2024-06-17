@@ -6314,7 +6314,7 @@ function Library:Window(options)
 									Keybind.State = b
 								end
 
-								if Keybind.Mode ~= "On Hold" then
+								if Keybind.Mode ~= "Off Hold" then
 									if not options.HideFromList then
 										if Keybind.State then
 											GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
