@@ -135,42 +135,31 @@ function Library:AutoResize(scrollingFrame, uilistlayout)
 end
 --
 function Library:AutoResizeTabs(frameToTrack, scrollingFrames)
-	local function updateScrollingFrameSize()
+	local function updateScrollingFrameSize(scrollingFrame)
+		local totalHeight = 0
+		for _, item in ipairs(scrollingFrame:GetChildren()) do
+			if item:IsA("Frame") then
+				totalHeight = totalHeight + item.AbsoluteSize.Y + 10
+			end
+		end
+		scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, totalHeight)
+		scrollingFrame.ScrollBarImageTransparency = scrollingFrame.CanvasSize.Y.Offset <= scrollingFrame.AbsoluteSize.Y and 1 or 0
+	end
+
+	local function updateAllScrollingFrames()
 		for _, scrollingFrame in ipairs(scrollingFrames) do
-			local uilistlayout = scrollingFrame:FindFirstChildOfClass("UIListLayout")
-			local padding = uilistlayout and uilistlayout.Padding.Offset or 0
-
-			local totalHeight = 0
-			local childCount = 0
-
-			for _, item in ipairs(scrollingFrame:GetChildren()) do
-				if item:IsA("GuiObject") then
-					totalHeight = totalHeight + item.AbsoluteSize.Y
-					childCount = childCount + 1
-				end
-			end
-
-			-- Add padding only between elements, not after the last element
-			if childCount > 1 then
-				totalHeight = totalHeight + (childCount - 1) * padding
-			end
-
-			print("Total Height:", totalHeight)  -- Debugging statement
-			print("CanvasSize Y Offset:", totalHeight)
-
-			scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, totalHeight)
-			scrollingFrame.ScrollBarImageTransparency = scrollingFrame.CanvasSize.Y.Offset <= scrollingFrame.AbsoluteSize.Y and 1 or 0
+			updateScrollingFrameSize(scrollingFrame)
 		end
 	end
 
-	frameToTrack:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateScrollingFrameSize)
+	frameToTrack:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateAllScrollingFrames)
 
 	for _, scrollingFrame in ipairs(scrollingFrames) do
-		scrollingFrame.ChildAdded:Connect(updateScrollingFrameSize)
-		scrollingFrame.ChildRemoved:Connect(updateScrollingFrameSize)
+		scrollingFrame.ChildAdded:Connect(function() updateScrollingFrameSize(scrollingFrame) end)
+		scrollingFrame.ChildRemoved:Connect(function() updateScrollingFrameSize(scrollingFrame) end)
 	end
 
-	updateScrollingFrameSize()
+	updateAllScrollingFrames()
 end
 --
 local function GetDictionaryLength(Dictionary: table)
@@ -8056,9 +8045,6 @@ function Library:Window(options)
 
 	function Library:Init()
 		Library:ChangeTheme(Library.Theme.Accent, "Accent")
-		
-		Library:AutoResize(GUI.PlayerListTab["24"], GUI.PlayerListTab["2f"])
-		Library:AutoResize(GUI.PlayerListTab["5"], GUI.PlayerListTab["1d"])
 		Library:AutoResize(GUI["47"], GUI["49"])
 		
 		local gui = GUI["2"]
