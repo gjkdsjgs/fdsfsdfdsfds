@@ -6301,11 +6301,7 @@ function Library:Window(options)
 									(input.UserInputType == Enum.UserInputType.MouseButton1 and Keybind.Keybind == "MB1") or
 									(input.UserInputType == Enum.UserInputType.MouseButton2 and Keybind.Keybind == "MB2") or
 									(input.UserInputType == Enum.UserInputType.MouseButton3 and Keybind.Keybind == "MB3") then
-									if Keybind.Mode == "Off Hold" then
-										Keybind:Toggle(true)
-									else
-										Keybind:Toggle()
-									end
+									Keybind:Toggle()
 								end
 							end
 						end)
@@ -6331,15 +6327,15 @@ function Library:Window(options)
 									Toggle:GetCallback(Keybind.State)
 								else
 									if not options.HideFromList then
-										if not Keybind.State then
+										if Keybind.State then
 											GUI:AddKeybind(Toggle:GetName(), Toggle:GetKeybind(), Keybind.Mode)
 										else
 											GUI:RemoveKeybind(Toggle:GetName())
 										end
 									end
 
-									Library.Flags[Toggle:GetFlag()] = not Keybind.State
-									Toggle:GetCallback(not Keybind.State)
+									Library.Flags[Toggle:GetFlag()] = Keybind.State
+									Toggle:GetCallback(Keybind.State)
 								end
 							end
 						end
