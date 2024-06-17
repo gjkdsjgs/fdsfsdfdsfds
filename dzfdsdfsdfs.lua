@@ -131,8 +131,6 @@ function Library:AutoResize(scrollingFrame, uilistlayout)
 	end
 
 	uilistlayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(ResizeScrollingFrame)
-	scrollingFrame.ChildAdded:Connect(ResizeScrollingFrame)
-	scrollingFrame.ChildRemoved:Connect(ResizeScrollingFrame)
 	ResizeScrollingFrame()
 end
 --
@@ -8052,6 +8050,10 @@ function Library:Window(options)
 
 	function Library:Init()
 		Library:ChangeTheme(Library.Theme.Accent, "Accent")
+		
+		Library:AutoResize(GUI.PlayerListTab["24"], GUI.PlayerListTab["2f"])
+		Library:AutoResize(GUI.PlayerListTab["5"], GUI.PlayerListTab["1d"])
+		Library:AutoResize(GUI["47"], GUI["49"])
 		
 		local gui = GUI["2"]
 		local outlineGui = GUI["gggg"]
