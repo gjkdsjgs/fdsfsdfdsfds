@@ -135,28 +135,36 @@ function Library:AutoResize(scrollingFrame, uilistlayout)
 end
 --
 function Library:AutoResizeTabs(frameToTrack, scrollingFrames, padding)
-	local function UpdateScrollingFrameSize()
+	local function updateScrollingFrameSize()
 		for _, scrollingFrame in ipairs(scrollingFrames) do
 			local totalHeight = 0
-			for _, item in ipairs(scrollingFrame:GetChildren()) do
+			local children = scrollingFrame:GetChildren()
+			local childCount = 0
+
+			for _, item in ipairs(children) do
 				if item:IsA("GuiObject") then
 					totalHeight = totalHeight + item.AbsoluteSize.Y
+					childCount = childCount + 1
 				end
 			end
-			totalHeight = totalHeight + (#scrollingFrame:GetChildren() - 1) * padding
+
+			if childCount > 1 then
+				totalHeight = totalHeight + (childCount - 1) * padding
+			end
+
 			scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, totalHeight)
 			scrollingFrame.ScrollBarImageTransparency = scrollingFrame.CanvasSize.Y.Offset <= scrollingFrame.AbsoluteSize.Y and 1 or 0
 		end
 	end
 
-	frameToTrack:GetPropertyChangedSignal("AbsoluteSize"):Connect(UpdateScrollingFrameSize)
+	frameToTrack:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateScrollingFrameSize)
 
 	for _, scrollingFrame in ipairs(scrollingFrames) do
-		scrollingFrame.ChildAdded:Connect(UpdateScrollingFrameSize)
-		scrollingFrame.ChildRemoved:Connect(UpdateScrollingFrameSize)
+		scrollingFrame.ChildAdded:Connect(updateScrollingFrameSize)
+		scrollingFrame.ChildRemoved:Connect(updateScrollingFrameSize)
 	end
 
-	UpdateScrollingFrameSize()
+	updateScrollingFrameSize()
 end
 --
 local function GetDictionaryLength(Dictionary: table)
