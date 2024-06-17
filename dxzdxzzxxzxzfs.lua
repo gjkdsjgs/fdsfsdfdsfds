@@ -128,38 +128,11 @@ function Library:AutoResize(scrollingFrame, uilistlayout)
 		end
 		totalHeight = totalHeight + (#scrollingFrame:GetChildren() - 1) * uilistlayout.Padding.Offset
 		scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, totalHeight)
+		scrollingFrame.ScrollBarImageTransparency = scrollingFrame.CanvasSize.Y.Offset <= scrollingFrame.AbsoluteSize.Y and 1 or 0
 	end
 
 	uilistlayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(ResizeScrollingFrame)
 	ResizeScrollingFrame()
-end
---
-function Library:AutoResizeTabs(frameToTrack, scrollingFrames)
-	local function updateScrollingFrameSize(scrollingFrame)
-		local totalHeight = 0
-		for _, item in ipairs(scrollingFrame:GetChildren()) do
-			if item:IsA("Frame") then
-				totalHeight = totalHeight + item.Size.Y.Offset + 10
-			end
-		end
-		scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, totalHeight)
-		scrollingFrame.ScrollBarImageTransparency = scrollingFrame.CanvasSize.Y.Offset <= scrollingFrame.AbsoluteSize.Y and 1 or 0
-	end
-
-	local function updateAllScrollingFrames()
-		for _, scrollingFrame in ipairs(scrollingFrames) do
-			updateScrollingFrameSize(scrollingFrame)
-		end
-	end
-
-	frameToTrack:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateAllScrollingFrames)
-
-	for _, scrollingFrame in ipairs(scrollingFrames) do
-		scrollingFrame.ChildAdded:Connect(function() updateScrollingFrameSize(scrollingFrame) end)
-		scrollingFrame.ChildRemoved:Connect(function() updateScrollingFrameSize(scrollingFrame) end)
-	end
-
-	updateAllScrollingFrames()
 end
 --
 local function GetDictionaryLength(Dictionary: table)
@@ -1461,7 +1434,6 @@ function Library:Window(options)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 and Hover then
 			isDragging = true
 			originalMousePosition = uis:GetMouseLocation()
-			mouse.Icon = "rbxassetid://17700660626"
 			originalSize = mainFrame.Size
 			if Library.performanceDrag then
 				outlineGui.Visible = true
@@ -1477,15 +1449,12 @@ function Library:Window(options)
 				tweenService:Create(mainFrame, newInfo(Library.tweenInfoDragSpeed, Library.tweenInfoEasingStyle, Enum.EasingDirection.Out), {Size = outlineGui.Size}):Play()
 				tweenService:Create(GUI["4"], newInfo(Library.tweenInfoDragSpeed, Library.tweenInfoEasingStyle, Enum.EasingDirection.Out), {Size = outlineGui.Size}):Play()
 			end
-			
-			mouse.Icon = "rbxassetid://17700660626"
 		end
 	end)
 
 	uis.InputEnded:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			isDragging = false
-			mouse.Icon = ""
 			if Library.performanceDrag then
 				tweenService:Create(mainFrame, newInfo(Library.tweenInfoDragSpeed, Library.tweenInfoEasingStyle, Enum.EasingDirection.Out), {Size = outlineGui.Size}):Play()
 				tweenService:Create(GUI["4"], newInfo(Library.tweenInfoDragSpeed, Library.tweenInfoEasingStyle, Enum.EasingDirection.Out), {Size = outlineGui.Size}):Play()
@@ -1497,12 +1466,10 @@ function Library:Window(options)
 	cornerFrame.MouseEnter:Connect(function()
 		if not Library:IsMouseOverFrame(cornerFrame) then return end
 		Hover = true
-		mouse.Icon = "rbxassetid://17700660626"
 	end)
 
 	cornerFrame.MouseLeave:Connect(function()
 		Hover = false
-		mouse.Icon = ""
 	end)
 
 	do -- Navigation
@@ -1730,9 +1697,6 @@ function Library:Window(options)
 
 			Library:AutoResize(Tab["8"], Tab["42"])
 			Library:AutoResize(Tab["41"], Tab["42"])
-
-
-
 		end
 		-- Methods
 		function Tab:Activate()
