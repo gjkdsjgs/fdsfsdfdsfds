@@ -3296,6 +3296,10 @@ function Library:Window(options)
 					return Flags.CurrentFlag
 				end
 
+				function Tab:SetFlag(Flag)
+					Flags.CurrentFlag = Flag
+				end
+
 				function Tab:GetColor(Flag)
 					if Flag == "Priority" then
 						return Color3.fromRGB(255, 255, 0)
