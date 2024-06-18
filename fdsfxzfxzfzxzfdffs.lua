@@ -34,7 +34,7 @@ end
 local converted_stamp = ConvertTimeStamp(update_stamp)
 local trimmed_stamp = converted_stamp:match("^%s*(.-)%s*$")
 --
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/fdsfsdfdsfds/main/fdxfxdfdsfsdxzfs.lua"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/dsadasda/main/fdsfsfs.lua"))()
 --
 local CurrentGame, RemoteEvent, SupportedGames;
 --
@@ -1141,7 +1141,7 @@ local PredictionLine = Drawing.new("Line")
             --
             function LuckyHub:IsUsingAntiAim(Player)
                 if Player and Player.Character then
-                    if Player.Character:FindFirstChild("HumanoidRootPart") then
+                    if Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character:FindFirstChild("Humanoid") then
                         if (Player.Character.HumanoidRootPart.Velocity.Y < -5 and Player.Character.Humanoid:GetState() ~= Enum.HumanoidStateType.Freefall) or Player.Character.HumanoidRootPart.Velocity.Y < -50 then
                             return true
                         elseif Player and (Player.Character.HumanoidRootPart.Velocity.X > 35 or Player.Character.HumanoidRootPart.Velocity.X < -35) then
