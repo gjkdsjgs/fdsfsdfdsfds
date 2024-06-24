@@ -905,12 +905,6 @@ function Library:Window(options)
 		function GUI:UpdateIndicator(Target)
 			if HealthConnection then HealthConnection:Disconnect() end
 			if AntiConnection then AntiConnection:Disconnect() end
-
-			for _, v in pairs(GUI["1b"]:GetChildren()) do
-				if v.Name ~= "TargetFrame" then
-					v:Destroy()
-				end
-			end
 			
 			if Target ~= nil then
 				GUI["20"].Text = Target.Name
