@@ -900,11 +900,13 @@ function Library:Window(options)
 
 		local AntiConnection
 		local HealthConnection
+		GUI.IndicatorInitialized = false
 
 		function GUI:UpdateIndicator(Target)
 			if Target ~= nil then
 				GUI["20"].Text = Target.Name
 
+				if not GUI.IndicatorInitialized then
 				do
 					-- StarterGui.MyLibrary.Indicators.ContentContainer.UIListLayout
 					GUI["22"] = Instance.new("UIListLayout", GUI["1b"]);
@@ -1048,6 +1050,8 @@ function Library:Window(options)
 					else
 						return false
 					end
+				end
+					GUI.IndicatorInitialized = true
 				end
 
 				HealthConnection = Target.Character:FindFirstChild("Humanoid"):GetPropertyChangedSignal("Health"):Connect(function()
