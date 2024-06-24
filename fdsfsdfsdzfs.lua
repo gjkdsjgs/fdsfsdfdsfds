@@ -903,8 +903,8 @@ function Library:Window(options)
 		GUI.IndicatorInitialized = false
 
 		function GUI:UpdateIndicator(Target)
-			if HealthConnection then HealthConnection:Disconnect() end
-			if AntiConnection then AntiConnection:Disconnect() end
+			if HealthConnection then HealthConnection:Disconnect() HealthConnection = nil end
+			if AntiConnection then AntiConnection:Disconnect() AntiConnection = nil end
 			
 			if Target ~= nil then
 				GUI["20"].Text = Target.Name
