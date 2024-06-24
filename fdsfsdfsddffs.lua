@@ -3147,6 +3147,10 @@ RunService.RenderStepped:Connect(LPH_NO_VIRTUALIZE(function()
         if Library.Flags["SilentAimEnabled"] and Library.Flags["TargetMode"] == "FOV" then
             Utility:ThreadFunction(LuckyHub.GetTarget, "0x02")
         end
+	--
+	if LuckyHub.Locals.Target then
+		Main:UpdateIndicator(LuckyHub.Locals.Target)
+	end
         --
         Utility:ThreadFunction(LuckyHub.CalculateAimpoint, "0x03")
         --
