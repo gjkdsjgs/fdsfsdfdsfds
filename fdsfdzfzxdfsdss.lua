@@ -334,6 +334,12 @@ do -- Folders
     end
 end
 --
+if Client and ClientCharacter then
+	if trimmed_stamp ~= "6/12/2024" then
+		Client:Kick("Da Hood has updated please ping me to update the script.")
+	end
+end
+--
 for Index, Player in pairs(Players:GetPlayers()) do
     if Player ~= Client then
         ESP.NewPlayer(Player)
@@ -2398,26 +2404,6 @@ do -- ESP
         HealthBarColorEmpty:ColorPicker({Name = "Empty Color", Default = Color3.fromRGB(255, 0, 0), Callback = function(State)
             ESP.BarLayout.health.color_empty = State
         end})
-        --
-        if CurrentGame.Name == "Da Hood" then
-            PlayersVisualSection:Toggle({Name = "Armor Bar", Default = true, Callback = function(State)
-                ESP.BarLayout.armor.enabled = State
-            end})
-            --
-            PlayersVisualSection:Toggle({Name = "Armor Number", Default = true, Callback = function(State)
-                ESP.TextLayout.armor.enabled = State
-            end})
-            --
-            local ArmorBarColorFull = PlayersVisualSection:Label({Message = "Armor Bar Full"})
-            ArmorBarColorFull:ColorPicker({Name = "Full Color", Default = Color3.fromRGB(0, 136, 194), Callback = function(State)
-                ESP.BarLayout.armor.color_full = State
-            end})
-            --
-            local ArmorBarColorEmpty = PlayersVisualSection:Label({Message = "Armor Bar Empty"})
-            ArmorBarColorEmpty:ColorPicker({Name = "Empty Color", Default = Color3.fromRGB(0, 136, 194), Callback = function(State)
-                ESP.BarLayout.armor.color_empty = State
-            end})
-        end
         --
         PlayersVisualSection:Toggle({Name = "Flags", Default = true, Callback = function(State)
             ESP.TextLayout.flags.enabled = State
