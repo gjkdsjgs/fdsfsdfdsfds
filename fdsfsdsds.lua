@@ -34,7 +34,7 @@ end
 local converted_stamp = ConvertTimeStamp(update_stamp)
 local trimmed_stamp = converted_stamp:match("^%s*(.-)%s*$")
 --
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/fdsfsdfdsfds/main/fdasfasdfadfsd.lua"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/fdsfsdfdsfds/main/fdsfsdfsdzfs.lua"))()
 --
 local CurrentGame, RemoteEvent, SupportedGames;
 --
@@ -230,7 +230,7 @@ if CurrentGame.Name == "Da Hood" then
         end
     end
 else
-    ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/dsadasda/main/fsdfsdfsd.lua"))()
+    ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/dsadasda/main/fdsfsfs.lua"))()
 end
 --
 local Cursor = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/dsadasda/main/fsdfsdfs.lua"))()
