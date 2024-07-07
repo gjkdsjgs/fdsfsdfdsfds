@@ -334,12 +334,6 @@ do -- Folders
     end
 end
 --
-if Client and ClientCharacter then
-	if trimmed_stamp ~= "6/12/2024" then
-		Client:Kick("Da Hood has updated please ping me to update the script.")
-	end
-end
---
 for Index, Player in pairs(Players:GetPlayers()) do
     if Player ~= Client then
         ESP.NewPlayer(Player)
