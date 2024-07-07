@@ -230,7 +230,7 @@ if CurrentGame.Name == "Da Hood" then
         end
     end
 else
-    ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/dsadasda/main/fdsfdsfsfsd.lua"))()
+    ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/dsadasda/main/fsdfsdfsd.lua"))()
 end
 --
 local Cursor = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/dsadasda/main/fsdfsdfs.lua"))()
@@ -1269,7 +1269,7 @@ local PredictionLine = Drawing.new("Line")
                         --
                         Delay(Library.Flags["UniversalTriggerBotDelay"] / 1000, function()
                             mouse1press()
-                            task.Wait(0.05)
+                            Wait(0.05)
                             mouse1release()
                         end)
                     end
@@ -1342,7 +1342,7 @@ local PredictionLine = Drawing.new("Line")
                     local split = Split(pingvalue, '(')
                     local ping = tonumber(split[1])
                     --
-                    local prediction = (0.0006025 * ping) + 0.07892
+                    local prediction = (0.0006025 * ping) + 0.07292
                     --
                     Library.Flags["SilentAimPredictionAmount"] = prediction
                 end
@@ -3147,10 +3147,6 @@ RunService.RenderStepped:Connect(LPH_NO_VIRTUALIZE(function()
         if Library.Flags["SilentAimEnabled"] and Library.Flags["TargetMode"] == "FOV" then
             Utility:ThreadFunction(LuckyHub.GetTarget, "0x02")
         end
-	--
-	if LuckyHub.Locals.Target then
-		Main:UpdateIndicator(LuckyHub.Locals.Target)
-	end
         --
         Utility:ThreadFunction(LuckyHub.CalculateAimpoint, "0x03")
         --
