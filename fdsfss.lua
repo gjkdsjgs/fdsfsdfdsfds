@@ -213,25 +213,7 @@ do -- Preload
     RemoteEvent = CurrentGame.Functions.GetRemote()
 end
 --
-local ESP
---
-if CurrentGame.Name == "Da Hood" then
-    ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/dsadasda/main/fsdfsdfsd.lua"))()
-    --
-    if game.Players.LocalPlayer then
-        local bytecode = getscriptbytecode(game.Players.LocalPlayer.PlayerGui.Framework)
-        local convertreadable = tostring(bytecode)
-        --
-        for line in convertreadable:gmatch("%w+") do
-            if line:match("UpdateMousePos") then
-                CurrentGame.MouseArguments = line
-                break
-            end
-        end
-    end
-else
-    ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/dsadasda/main/fsdfsdfsd.lua"))()
-end
+local ESP = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/dsadasda/main/fdsfsdfsfsddfsd.lua"))()
 --
 local Cursor = loadstring(game:HttpGet("https://raw.githubusercontent.com/gjkdsjgs/dsadasda/main/fsdfsdfs.lua"))()
 --
